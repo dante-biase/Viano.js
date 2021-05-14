@@ -1,0 +1,22 @@
+
+
+mixin piano_label()
+    - var id = attributes.id
+    - var icon = attributes.icon
+    - var text = attributes.text ? attributes.text : ""
+    - var font_size = attributes.font_size ? attributes.font_size : 12
+    - var icon_size = attributes.icon_size ? attributes.icon_size : [20, 20]
+
+    - 
+        let astyle = {
+            "background-size": `${icon_size[0]}px ${icon_size[1]}px`,
+            //"background-color": "#fff",
+            "background-position": "center",
+            "background-repeat": "no-repeat",
+            "width": icon_size[0] + "px",
+            "height": icon_size[1] + "px",
+        }
+
+    div(id=id, class="piano-label", style={"font-size": font_size + "px"})
+        img(src=icon, style=astyle)
+        | #{text}

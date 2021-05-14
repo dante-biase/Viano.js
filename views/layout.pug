@@ -1,0 +1,30 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    
+    link(rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css")
+    link(rel="stylesheet" href="https://unpkg.com/animate.css/animate.css" type="text/css")
+    link(rel="stylesheet" href="https://unpkg.com/rmodal/dist/rmodal.css" type="text/css")
+    script(type="text/javascript" src="https://unpkg.com/rmodal/dist/rmodal.js")
+
+    script(type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js")
+    link(rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" type="text/css")
+    script(type="text/javascript" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js")
+
+    script(type="text/javascript" src="http://semantic-ui.com/javascript/library/tablesort.js")
+
+    //- link(rel="stylesheet" href="/stylesheets/range.css" type="text/css")
+    //- script(type="text/javascript" src="/javascripts/range.js")
+
+    //- link(rel="stylesheet" href="semantic/dist/semantic.min.css" type="text/css")
+    //- script(type="text/javascript" src="semantic/dist/semantic.min.js")
+
+    script(src='/javascripts/main.js')
+
+  body
+    block select_song_modal
+    block new_song_modal
+    block content

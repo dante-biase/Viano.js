@@ -1,0 +1,10 @@
+
+
+mixin grid()
+    - let _class = attributes._class ? attributes._class : "grid";
+    - let astyle = attributes.astyle ? attributes.astyle : {};
+    - astyle["grid-template-rows"] = attributes.rows ? attributes.rows : "1fr"
+    - astyle["grid-template-columns"] = attributes.columns ? attributes.columns : "1fr"
+
+    div(class=_class, style=astyle)
+        block

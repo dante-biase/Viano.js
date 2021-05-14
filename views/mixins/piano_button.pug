@@ -1,0 +1,22 @@
+
+
+mixin piano_button()
+    - var id = attributes.id
+    - var icon = attributes.icon
+    - var size = attributes.size ? attributes.size : [40, 40]
+    - var icon_size = attributes.icon_size ? attributes.icon_size : [40, 40]
+
+    - 
+        let astyle = {
+            "background": `url(${icon})`,
+            "background-size": `${icon_size[0]}px ${icon_size[1]}px`,
+            //"background-color": "#fff",
+            "background-position": "center",
+            "background-repeat": "no-repeat",
+            "width": size[0] + "px",
+            "height": size[1] + "px",
+        }
+
+    button(id=id, class="piano-button", style=astyle)
+
+    //{"background": "url(" + icon + ")", "width": icon_size[0] + "px", "height": icon_size[1] + "px"}

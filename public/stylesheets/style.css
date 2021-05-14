@@ -1,0 +1,236 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+a {
+  color: #00B7FF;
+}
+
+
+.piano {
+  background-color: #373737;
+  display: grid;
+  grid-template-rows: 80px 250px;
+  row-gap: 1em;
+  padding: 25px;
+  padding-bottom: 34px;
+  border-radius: 20px;
+}
+
+.piano-header {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 20px;
+  font-family: 'digital-7';
+  src: url('../fonts/digital-7.ttf');
+  color: #DD8540;
+}
+
+.piano-label-container {
+
+}
+
+.piano-label-icon {
+  width: "50";
+  height: "50";
+}
+
+.piano-label {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  text-align: left;
+  grid-template-columns: 1fr 4fr;
+  gap: 5px;
+  margin-right: auto;
+  color: #DD8540
+}
+
+.vertical-group {
+  display: grid;
+  align-items: center;
+  justify-content: left;
+  border-radius: 10px;
+  background-color: #fff;
+  padding: 7px;
+}
+
+.piano-display-left {
+  display: grid;
+  align-items: center;
+  justify-content: left;
+  border-radius: 10px;
+  background-color: #fff;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: 1fr;
+  padding: 7px;
+}
+
+.piano-display-main {
+  display: grid;
+  justify-content: center;
+  justify-items: center;
+  align-content: center;
+  align-items: center;
+  border-radius: 10px;
+  background-color: #fff;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr;
+  padding: 7px;
+}
+
+.grid {
+  display: grid;
+  /* justify-content: center;
+  justify-items: center; */
+  /* align-content: center;*/
+  /* align-items: center; */
+}
+
+.grid.test {
+}
+
+.piano-ticker {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  grid-template-columns: 1fr 4fr;
+  padding-left: 15px;
+  gap: 5px;
+  padding-right: 20px;
+}
+
+.piano-ticker-time {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: #000;
+}
+
+
+.piano-ticker-feed {
+  display: grid;
+  text-align: left;
+  color: #000;
+  background-color: #fff;
+  border-radius: 2px;
+}
+
+.piano-buttons {
+  display: grid;
+  justify-content: center;
+  justify-items: center;
+  align-content: center;
+  align-items: center;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0px;
+}
+
+.piano-button {
+  display: grid-cell;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #000;
+  border-width: medium;
+  border-radius: 5px;
+  /* box-shadow: 0 4px #999; */
+}
+
+
+.piano-keys {
+  /* background-color: #04AA6D;
+  border: 1px solid green; */
+  color: white; /* White text */
+  cursor: pointer; /* Pointer/hand icon */
+}
+
+.piano-key-white {
+  display: inline-block;
+  /* padding: 15px 25px; */
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #000;
+  background-color: #fff;
+  border-width: thin;
+  border-color: #000;
+  border-radius: 10px;
+  box-shadow: 0 9px #999;
+  height: 250px;
+  width: 75px;
+  position: relative;
+  z-index: 0;
+}
+
+.piano-key-black {
+  display: inline-block;
+  vertical-align: top;
+  /* padding: -15px 25px; */
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #000;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 9px #999;
+  height: 150px;
+  width: 50px;
+  margin-top: -5px;
+  margin-left: -25px;
+  margin-right: -25px;
+  position: relative;
+  z-index: 1;
+}
+
+.piano-key-black:active, .piano-key-white:active {
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+/* .button-option:active {
+  box-shadow: 0 2px #666;
+  transform: translateY(2px);
+} */
+
+.letter {
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  margin: 26px auto 0;
+  max-width: 550px;
+  padding: 24px;
+  position: relative;
+  width: 80%;
+}
+.letter:before, .letter:after {
+  content: "";
+  height: 98%;
+  position: absolute;
+  width: 100%;
+  z-index: -1;
+}
+.letter:before {
+  background: #fafafa;
+  box-shadow: 0 0 8px rgba(0,0,0,0.2);
+  left: -5px;
+  top: 4px;
+  transform: rotate(-2.5deg);
+}
+.letter:after {
+  background: #f6f6f6;
+  box-shadow: 0 0 3px rgba(0,0,0,0.2);
+  right: -3px;
+  top: 1px;
+  transform: rotate(1.4deg);
+}
