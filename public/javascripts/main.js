@@ -30,7 +30,8 @@ window.onload = async () => {
     select_song_modal.setup("select-song-modal");
     new_song_modal.setup("new-song-modal");
     await piano.setup();
-    // piano.load_song(songs[0]);
+    $('#overlay').removeClass('active');
+
 
     // select song
     piano.on_select_song_click(async () => {
