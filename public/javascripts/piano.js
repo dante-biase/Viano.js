@@ -128,7 +128,7 @@ var key_sheet_feed = {
 var piano = {
     default_key_map: {},
     enabled: true,
-    transpose: 3,
+    transpose: 0,
     current_song: {},
     songs: [],
     key_sheet_feed: key_sheet_feed,
