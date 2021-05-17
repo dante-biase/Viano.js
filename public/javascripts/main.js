@@ -1,3 +1,8 @@
+//import { Piano } from '@tonejs/piano'
+
+// import * as foo from '@tonejs/piano';
+
+
 /*
  * This files holds all the code to test you REST API
  */
@@ -19,12 +24,12 @@ $(document).ready(async () => {
 });
 
 //Run once broswer has loaded everything
-window.onload = () => {
+window.onload = async () => {
 
     // setup
     select_song_modal.setup("select-song-modal");
     new_song_modal.setup("new-song-modal");
-    piano.setup();
+    await piano.setup();
     // piano.load_song(songs[0]);
 
     // select song

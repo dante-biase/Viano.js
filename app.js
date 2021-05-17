@@ -5,6 +5,14 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+// const Piano = require('@tonejs/piano');
+// const piano = new Piano({
+//   velocities: 5
+// })
+// console.log(Piano)
+// import Piano from 'node:@tonejs/piano';
+
+
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 

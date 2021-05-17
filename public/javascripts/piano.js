@@ -1,16 +1,19 @@
-//import { Piano } from '/node_modules/@tonejs/piano'
-// import { Piano } from '../../app.js'
-// const Tone = require('Tone');
-// require = require('esmify')(module);
-// const Piano = require('@tonejs/piano');
-// Tone.Synth is a basic synthesizer with a single oscillator
-const synth = new Tone.Synth();
-// Set the tone to sine
-synth.oscillator.type = "sine";
 
-// connect it to the master output (your speakers)
-synth.toDestination();
 
+// // Tone.Synth is a basic synthesizer with a single oscillator
+// const synth = new Tone.Synth();
+// // Set the tone to sine
+// synth.oscillator.type = "sine";
+
+// // connect it to the master output (your speakers)
+// synth.toDestination();
+
+const _piano = new Piano({
+	velocities: 5
+})
+
+//connect it to the speaker output
+_piano.toDestination()
 
 //Tone.context.resume();
 //AudioContext.start();
@@ -145,7 +148,11 @@ var piano = {
         ["transposition", "trans-label"],
         ["difficulty", "difficulty-label"]
     ],
-    setup: function() {
+    setup: async function() {
+        await _piano.load().then(() => {
+            console.log('loaded!')
+        })
+
         this._disable_btn('#prev-song-btn', true);
         this._disable_btn('#pp-song-btn', true);
         this._disable_btn('#next-song-btn', true);
@@ -172,12 +179,18 @@ var piano = {
                 key: key,
                 note: note,
 
-            }            
+            }           
+            // p.keyDown({note: 'C4', time: '+1'})
+            // p.keyUp({ note: 'C4' }) 
             piano_key.element.addEventListener("mousedown", e => {
-                if (parent.enabled) return synth.triggerAttack(piano_key.note);   
+                if (parent.enabled) {
+                    let note = Tonal.Note.transposeFifths(piano_key.note, parent.transpose);
+                    return _piano.keyDown({note: note}); //synth.triggerAttack(piano_key.note);   
+                }
             });  
             piano_key.element.addEventListener("mouseup", e => {
-                if (parent.enabled) synth.triggerRelease();
+                let note = Tonal.Note.transposeFifths(piano_key.note, parent.transpose);
+                if (parent.enabled) _piano.keyUp({note: note}) 
             });
 
             this.default_key_map[key] = piano_key;
@@ -192,14 +205,15 @@ var piano = {
             if(!parent.state.paused) parent.key_sheet_feed.next();
             piano_key.element.classList.add("piano-key-focus");
             let note = Tonal.Note.transposeFifths(piano_key.note, parent.transpose);
-            return synth.triggerAttack(note);
+            return _piano.keyDown({note: note});
         });
 
         document.addEventListener("keyup", e => {
             if (!parent.enabled || !(e.key in key_map)) return;
-
-            parent._get_key(e.key).element.classList.remove("piano-key-focus")
-            synth.triggerRelease();
+            let piano_key = parent._get_key(e.key)
+            piano_key.element.classList.remove("piano-key-focus")
+            let note = Tonal.Note.transposeFifths(piano_key.note, parent.transpose);
+            _piano.keyUp({note: note}) 
         });
         
         this._disable_btn('#pp-song-btn', true);
