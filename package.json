@@ -1,10 +1,10 @@
 {
-  "name": "final project",
+  "name": "piano-js",
   "version": "1.0.0",
   "description": "Codebase for CSE264 Final Project",
   "private": true,
   "scripts": {
-        "server": "node app.js"
+    "server": "node app.js"
   },
   "dependencies": {
     "@tonejs/piano": "^0.2.1",
