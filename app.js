@@ -58,10 +58,6 @@ if (process.env.NODE_ENV === "production") {
   // like our main.js file, or main.css file
   app.use(express.static("client/build"));
 
-  const path = require("path");
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-  });
 }
 else {
   // error handler
