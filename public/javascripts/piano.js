@@ -10,10 +10,10 @@
 
 const _piano = new Piano({
 	velocities: 5
-})
+});
 
 //connect it to the speaker output
-_piano.toDestination()
+_piano.toDestination();
 
 //Tone.context.resume();
 //AudioContext.start();
