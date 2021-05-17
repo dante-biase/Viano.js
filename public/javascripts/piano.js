@@ -85,7 +85,6 @@ var key_sheet_feed = {
         let new_key_note_pairs = [];
         let ks_key_set = [...new Set(ks.replace(/\W/g, ''))];
         let new_keys = this._create_new_alphabet(ks_key_set.length);
-        console.log(new_keys);
         for (let i = 0; i < ks_key_set.length; i++) {
             let old_key = ks_key_set[i];
             let old_key_note = knm0[old_key];

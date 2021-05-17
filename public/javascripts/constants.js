@@ -372,4 +372,3 @@ function generate_key_note_map() {
 }
 
 const [key_note_map, knm0] = generate_key_note_map();
-console.log(key_note_map)
