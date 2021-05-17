@@ -74,6 +74,6 @@ app.use(function(err, req, res, next) {
 // const port = process.env.PORT || 3000;
 // app.listen(port);
 app.use(cors());
-app.options('*'. cors());
+//app.options('*'. cors());
 
 module.exports = app;

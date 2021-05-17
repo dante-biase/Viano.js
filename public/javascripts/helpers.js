@@ -6,6 +6,7 @@ function request(url, method, data) {
         'method': method,
         'headers': {
             'Content-Type': 'application/json',
+            'mode': 'no-cors'
         }
     };
 
