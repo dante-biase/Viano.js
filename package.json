@@ -1,12 +1,11 @@
 {
-  "name": "project3",
+  "name": "final project",
   "version": "1.0.0",
-  "description": "Codebase for CSE264 Programming Assignment 3",
+  "description": "Codebase for CSE264 Final Project",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
-    "dev": "nodemon ./bin/www"
-  },
+        "server": "node app.js"
+  },
   "dependencies": {
     "@tonejs/piano": "^0.2.1",
     "browser-resolve": "^2.0.0",
