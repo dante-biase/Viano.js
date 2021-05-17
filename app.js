@@ -13,6 +13,7 @@ var logger = require('morgan');
 // import Piano from 'node:@tonejs/piano';
 
 
+const cors = require('cors');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
@@ -72,5 +73,6 @@ app.use(function(err, req, res, next) {
 
 // const port = process.env.PORT || 3000;
 // app.listen(port);
+app.use(cors());
 
 module.exports = app;
