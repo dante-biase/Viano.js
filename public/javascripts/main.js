@@ -3,7 +3,7 @@
  */
 
 var songs;
-var songs_url = 'https://frozen-everglades-73007.herokuapp.com/songs/';
+var songs_url = 'http://localhost:3000/songs/';
 
 
 async function refresh_songs() {
