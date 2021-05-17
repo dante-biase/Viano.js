@@ -189,8 +189,10 @@ var piano = {
                 }
             });  
             piano_key.element.addEventListener("mouseup", e => {
-                let note = Tonal.Note.transposeFifths(piano_key.note, parent.transpose);
-                if (parent.enabled) _piano.keyUp({note: note}) 
+                if (parent.enabled) {
+                    let note = Tonal.Note.transposeFifths(piano_key.note, parent.transpose);
+                    _piano.keyUp({note: note})
+                } 
             });
 
             this.default_key_map[key] = piano_key;
