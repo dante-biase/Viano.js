@@ -1,4 +1,5 @@
 extends layout
+include mixins/piano_scroll
 include mixins/piano_label
 include mixins/piano_button
 include mixins/grid
@@ -24,29 +25,17 @@ block select_song_modal
             //-       th Difficulty
             //-   tbody
 
-            table#song-table.ui.sortable.selectable.compact.celled.table
+            table#song-table.ui.table-borderless(class="display compact", style="width: 400px;")
               thead
                 tr
                   th.sorted.ascending Artist
                   th Song
                   th Difficulty
-              tbody
-                tr
-                  td Jamie
-                  td.positive Approved
-                  td.warning Requires call
-                tr
-                  td Jill
-                  td.negative Denied
-                  td None
-                tr
-                  td John
-                  td No Action
-                  td None       
+              tbody   
 
           .modal-footer
             button.btn.btn-primary(id="select-song-submit-btn", type='submit') Select
-            button.btn.btn-default(type='button' onclick='modal.close();') Cancel
+            button.btn.btn-default(type='button' onclick='piano.enabled=true; modal.close();') Cancel
 
 
 block new_song_modal
@@ -60,46 +49,47 @@ block new_song_modal
             .ui.form
               .field
                 label Difficulty
-                select.ui.dropdown
-                    option(value='') Gender
-                    option(value='1') Male
-                    option(value='0') Female
+                select.ui.dropdown(id="difficulty-selection")
+                    option(value='1') SUPER EASY
+                    option(value='2') EASY
+                    option(value='3') INTERMEDIATE
+                    option(value='4') EXPERT
                   
               .field
                 label Artist
-                input(type='text' name='artist' placeholder='Artist')
+                input(id="artist-input" type='text' name='artist' placeholder='Artist')
 
               .field
-                label Song
-                input(type='text' name='song' placeholder='Song')
+                label Song Name
+                input(id="song-name-input" type='text' name='song' placeholder='Song')
 
               .field
                 label Key Sheet
-                textarea
+                textarea(id="key-sheet-input")
 
               .fields
 
                 .field
                   label Tempo
-                  input(type='number' placeholder='Tempo')
+                  input(id="tempo-input" type='number' placeholder='Tempo')
 
                 .five.wide.field
                   label Duration
                   inline.fields
                     .field
                       //- label mins
-                      input(type='text' placeholder='00', maxlength="2")
+                      input(id="dur-mins-input" type='text' placeholder='00', maxlength="2")
                     .field
                       //- label secs
-                      input(type='text' placeholder='00', maxlength="2")
+                      input(id="dur-secs-input" type='text' placeholder='00', maxlength="2")
 
                 .field
                   label Transposition
-                  input(type='number' placeholder='Transposition')
+                  input(id="trans-input" type='number' placeholder='Transposition')
 
           .modal-footer
             button.btn.btn-primary(id="new-song-submit-btn", type='submit') Submit
-            button.btn.btn-default(type='button' onclick='modal.close();') Cancel
+            button.btn.btn-default(type='button' onclick='piano.enabled=true; modal.close();') Cancel
 
 
 block content
@@ -107,46 +97,98 @@ block content
   +grid(rows="1fr 3fr")
     // music sheet
     div(class="letter")
-      +grid(columns="1fr 5fr", astyle={"height": "100%"})
-        +piano_label(id="difficulty", icon="../icons/difficulty.png", text="test1")
-        +piano_label(id="tempo", icon="../icons/difficulty.png", text="test1")
-
+      //- .scroll-left(style={"background-image": "url(../imgs/sheet_background.png)", "background-repeat": "no-repeat"})
+      //-   p(style="font-size: 35px;") Scroll left...
+      +piano_scroll 
+      
     // piano
-    +grid(rows=".5fr 2fr", astyle={"gap": "20px", "background-color": "#373737", "padding": "25px", "border-bottom": "34px", "border-radius": "20px"})
-      +grid(rows="100px", columns="1fr 2fr 1fr", astyle={"gap": "20px"})
+    +grid(rows=".5fr 2fr", astyle={"gap": "20px", "height": "450px", "background-color": "#373737", "padding": "25px", "border-bottom": "34px", "border-radius": "20px"})
+      +grid(rows="125px", columns="1fr 2fr 1fr", astyle={"gap": "20px"})
 
-        +grid(rows="1fr 1fr 1fr", astyle={"background-color": "black", "border-radius": "10px"})
-          +piano_label(id="difficulty", icon="../icons/difficulty.png", text="test1")
-          +piano_label(id="tempo", icon="../icons/difficulty.png", text="test1")
-          +piano_label(id="transposition", icon="../icons/difficulty.png", text="test1")
+        +grid(rows="1fr 1fr 1fr", astyle={"background-color": "black", "border-radius": "10px", "padding-left": "15px", "padding-top": "10px", "padding-bottom": "10px"})
+          +piano_label(id="difficulty-label", icon="../icons/difficulty.png")
+          +piano_label(id="tempo-label", icon="../icons/tempo.png")
+          +piano_label(id="trans-label", icon="../icons/transposition.png")
 
-        +grid(rows="1fr 1fr")
-          +grid(rows="1fr 1fr", astyle={"background-color": "black", "border-radius": "10px", "padding-top": "5px", "padding-bottom": "5px"})
-            +piano_label(id="song", icon="../icons/difficulty.png", text="test1", font_size=20)
-            +piano_label(id="artist", icon="../icons/difficulty.png", text="test1", font_size=20)
-
+        +grid(rows=".75fr .25fr", astyle={"margin-bottom": "25px"})
+          +grid(rows="1fr .5fr 1fr", astyle={"background-color": "black", "border-radius": "10px", "padding-top": "10px", "padding-bottom": "10px", "padding-left": "15px"})
+            +piano_label(id="artist-label", icon="../icons/artist.png", font_size=16, icon_size=[20, 20])
+            div
+            +piano_label(id="song-name-label", icon="../icons/note.png", font_size=15, icon_size=[20, 20])
+          +grid(columns=".25fr 1fr .25fr", astyle={"background-color": "black", "color": "#DD8540", "border-radius": "10px", "align-items": "center", "margin-top": "10px"})
+            .current-time(id="timer-up") 00:00
+            span(id="timer-progress") ●
+            .total-duration(id="timer-down") -00:00
 
         +grid(rows="1fr 1fr", astyle={"align-items": "center"})
           +grid(columns="1fr 1fr 2fr")
-            +piano_button(id="select-song-btn", icon="../icons/difficulty.png")
-            +piano_button(id="new-song-btn", icon="../icons/difficulty.png")
+            - let astyle = {"background-color": "#f33307", "border-color": "#b81705"};
+            +piano_button(id="select-song-btn", icon="../icons/sheets.png", astyle=astyle)
+            +piano_button(id="new-song-btn", icon="../icons/new_sheet.png", astyle=astyle)
           +grid(columns="1fr 1fr 1fr 1fr")
-            +piano_button(id="prev-song-btn", icon="../icons/difficulty.png")
-            +piano_button(id="pp-song-btn", icon="../icons/difficulty.png")
-            +piano_button(id="next-song-btn", icon="../icons/difficulty.png")
-            +piano_button(id="sr-song-btn", icon="../icons/difficulty.png")
+            - let astyle = {"background-color": "#81868b", "border-color": "#4f5154"};
+            +piano_button(id="prev-song-btn", icon="../icons/previous.png", astyle=astyle)
+            +piano_button(id="pp-song-btn", icon="../icons/pause.png", astyle=astyle)
+            +piano_button(id="next-song-btn", icon="../icons/next.png", astyle=astyle)
+            +piano_button(id="sr-song-btn", icon="../icons/stop.png", astyle=astyle)
 
     
       div(class="piano-keys")
+
         - var i = 0;
+        - var j = 0;
         - var c = 0;
-        while i < 10
+
+        while i < 2
+          // 3 seg
+          - j = 0;
+          while j < 2
+            button(class="piano-key-white", id="key" + c)
+            button(class="piano-key-black", id="key" + (c + 1))
+            - j++;
+            - c += 2;
           button(class="piano-key-white", id="key" + c)
-          button(class="piano-key-black", id="key" + (c + 1))
+          - c += 1;
+
+          // 5 seg
+          - j = 0;
+          while j < 3
+            button(class="piano-key-white", id="key" + c)
+            button(class="piano-key-black", id="key" + (c + 1))
+            - j++;
+            - c += 2;
+          button(class="piano-key-white", id="key" + c)
+          - c += 1;
+
           - i++;
-          - c += 2;
+
+        //- while j < 12
+        //-   button(class="piano-key-white", id="key" + c)
+        //-   button(class="piano-key-black", id="key" + (c + 1))
+        //-   - j++;
+        //-   - c += 2;
+        //- button(class="piano-key-white", id="key" + c)
         
-        button(class="piano-key-white", id="key" + c)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //- , style={"gap": "20px", "background-color": "#373737", "padding": "25px", "border-bottom": "34px", "border-radius": "20px"}

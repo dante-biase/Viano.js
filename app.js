@@ -1,13 +1,20 @@
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
 var indexRouter = require('./routes/index');
 var songRouter = require('./routes/song');
+// var songRouter = require('./routes/song');
+// var pianoRouter = require('./public/javascripts/piano');
+// require = require('esm')(module);
+// var Piano = require('@tonejs/piano');
+
 
 //dotenv.config({ path: '.env.example' });
 dotenv.config({ path: '.env' });

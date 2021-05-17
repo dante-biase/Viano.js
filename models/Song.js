@@ -6,7 +6,7 @@ const songSchema = new mongoose.Schema({
     "artist": {type: String, required: true},
     "difficulty": {type: String, required: true},
     "key_sheet": {type: String, required: true},
-    "length": {type: String, required: true},
+    "duration": {type: String, required: true},
     "tempo": {type: Number, required: true},
     "transposition": {type: Number, required: true},
 });

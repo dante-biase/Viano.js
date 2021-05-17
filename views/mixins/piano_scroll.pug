@@ -1,0 +1,28 @@
+include grid
+
+
+mixin piano_scroll()
+    //- - var id = attributes.id
+    //- - var icon = attributes.icon
+    //- - var size = attributes.size ? attributes.size : [40, 40]
+    //- - var icon_size = attributes.icon_size ? attributes.icon_size : [25, 25]
+
+    -
+        let astyle = {
+            "width": "100%", 
+            "height": "100%", 
+            "background-image": "url(../imgs/sheet_background.png)", 
+            "background-repeat": "no-repeat", 
+            "align-items": "center", 
+            "font-size": "30px"
+        };
+
+        Object.assign(astyle, attributes.astyle ? attributes.astyle : {});
+
+    +grid(columns=".5fr .5fr 4fr", astyle=astyle)
+        div 
+        span(id="current_notes", style={"padding-left": "25px", "padding-right": "25px", "text-align": "right", "color": "black"})
+            | 
+        span(id="next_notes", style={"text-align": "left", "color": "grey", "white-space": "nowrap", "overflow-x": "hidden"})
+            | 
+

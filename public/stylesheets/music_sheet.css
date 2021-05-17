@@ -1,0 +1,41 @@
+.scroll-left {
+    height: 100%;	
+    overflow: hidden;
+    position: relative;
+    overflow: hidden;
+   }
+   .scroll-left p {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Starting position */
+    transform:translateX(100%);
+    /* Apply animation to this element */
+    animation: scroll-left 5s linear infinite;
+   }
+   /* Move it (define the animation) */
+   @keyframes scroll-left {
+    0%   {
+        transform: translateX(100%);
+        opacity: .5;
+        color: grey;
+    }
+    54% {
+        opacity: .5;
+        color: grey;
+    }
+    55% {
+        opacity: 1;
+        color: black;
+    }
+    100% {
+        color: black;
+        transform: translateX(-100%);
+    }
+   }
+

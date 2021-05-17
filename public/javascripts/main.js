@@ -3,127 +3,80 @@
  */
 
 var songs;
-var song_table;
 var songs_url = 'http://localhost:3000/songs/';
 
-function request(url, method, data) {
-    // setup the request parameters
-    let params = {
-        'method': method,
-        'headers': {
-            'Content-Type': 'application/json',
-        }
-    };
 
-    // if the request is a GET request, return the status of the get request
-    // only if the request was not sucessful. Otherwise return the collection
-    // of film's or specific use requested
-    if (method === 'GET') {
-        return fetch(url, params)
-            .then(response => {
-                if (!response.ok) return response.status;
-                else return response.json();
-            });
-    }
-    // for any other type of request, set the parameter body
-    // and only return the response status recieved from executing
-    // the request
-    else {
-        params.body = JSON.stringify(data);
-        return fetch(url, params)
-            .then(response => response.status);
-    }
-};
-
-async function refreshSongs() {
+async function refresh_songs() {
     songs = await request(songs_url, "GET");
-    songs = [{"name": "test","artist": "test","difficulty": "test"}];
-    console.log(songs)
-    for (let i = 0; i < songs.length; ++i) {
-        let song = songs[i];
-        song_table.rows.add([
-            song.name, song.artist, song.difficulty
-        ])//.draw();
-    }
+    select_song_modal.table.update(
+        songs, song => [song.artist, song.name, song.difficulty]
+    );
+    piano.load_songs(songs);
 }
 
 $(document).ready(async () => {
-    // song_table = $('#song-table').DataTable({
-    //     "scrollY":        "200px",
-    //     "scrollCollapse": false,
-    //     "paging":         false
-    // });
-    song_table = $('#song-table');
-    song_table.tablesort();
-    song_table.rows = song_table[0].children[1];
-    song_table.rows.add = (cells) => {
-        let new_row = song_table.rows.insertRow(0);
-        for (let i = 0; i < cells.length; ++i) {
-            let cell = new_row.insertCell(i);
-            cell.innerHTML = cells[i];
-        }
-    };
-
-    await refreshSongs();
+    await refresh_songs();
 });
 
 //Run once broswer has loaded everything
 window.onload = () => {
 
-    var select_song_modal = new RModal(document.getElementById('select-song-modal'), {
-        afterOpen: () => {
-            //song_table.columns.adjust();
-        },
-    
-        // dialogOpenClass: 'animate__slideInDown',
-        // dialogCloseClass: 'animate__slideOutUp'
-        // bodyClass: 'modal-open',
-        // dialogClass: 'modal-dialog',
-    
-        // focus: true,
-        // focusElements: ['input.form-control', 'textarea', 'button.btn-primary'],
-    
-        // escapeClose: true
-    });
+    // setup
+    select_song_modal.setup("select-song-modal");
+    new_song_modal.setup("new-song-modal");
+    piano.setup();
+    // piano.load_song(songs[0]);
 
-
-    var new_song_modal = new RModal(document.getElementById('new-song-modal'), {
-        afterOpen: () => {
-            //song_table.columns.adjust();
-        },
-    });
-
-
-    //button event for create
-    document.getElementById("select-song-btn").addEventListener("click", e => {
-        window.modal = select_song_modal;
-        e.preventDefault();
+    // select song
+    piano.on_select_song_click(async () => {
+        await refresh_songs();
         select_song_modal.open();
-    }, false);
+    });
 
-    document.getElementById("select-song-submit-btn").addEventListener("click", e => {
-        window.modal = select_song_modal;
-        e.preventDefault();
-        //load_song(song)
-        select_song_modal.close();
-    }, false);
+    select_song_modal.on_select_click(() => {
+        let selected_song = select_song_modal.table.get_selected_song();
+        if (selected_song) {
+            select_song_modal.close();
+            piano.select_song(selected_song.track_no);
+        }
+    });
 
-    //button event for create
-    document.getElementById("new-song-btn").addEventListener("click", e => {
-        window.modal = new_song_modal;
-        e.preventDefault();
+    // new song
+    piano.on_new_song_click(() => {
         new_song_modal.open();
-    }, false);
+    });
 
-    //button event for create
-    document.getElementById("new-song-submit-btn").addEventListener("click", async e => {
-        window.modal = new_song_modal;
-        e.preventDefault();
-        // post new song
-        await refreshSongs();
-        //load_song(song)
-        new_song_modal.close();
-    }, false);
+    new_song_modal.on_submit_click(async () => {
+        let song = new_song_modal.form.get_song();
+        let response = await request(songs_url, "POST", song);
+        if (response !== 201) {
+            console.log("post error");
+        }
+        else {
+            new_song_modal.close();
+            new_song_modal.form.clear();
+            await refresh_songs();
+            let track_no = songs.findIndex(s => s.name === song.name && s.artist === song.artist);
+            piano.select_song(track_no);
+        }
+    });
 
+
+    piano.on_prev_click(() => {
+
+    });
+
+    piano.on_play_pause_click(() => {
+
+    });
+
+    piano.on_next_click(() => {
+
+    });
+
+    piano.on_stop_replay_click(() => {
+        
+    });
+    
 };
 

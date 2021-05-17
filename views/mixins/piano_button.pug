@@ -3,19 +3,22 @@
 mixin piano_button()
     - var id = attributes.id
     - var icon = attributes.icon
+    - var data = attributes.data
     - var size = attributes.size ? attributes.size : [40, 40]
-    - var icon_size = attributes.icon_size ? attributes.icon_size : [40, 40]
+    - var icon_size = attributes.icon_size ? attributes.icon_size : [25, 25]
 
-    - 
+    -
         let astyle = {
-            "background": `url(${icon})`,
+            "background-image": `url(${icon})`,
             "background-size": `${icon_size[0]}px ${icon_size[1]}px`,
             //"background-color": "#fff",
             "background-position": "center",
             "background-repeat": "no-repeat",
             "width": size[0] + "px",
             "height": size[1] + "px",
-        }
+        };
+
+        Object.assign(astyle, attributes.astyle ? attributes.astyle : {});
 
     button(id=id, class="piano-button", style=astyle)
 
